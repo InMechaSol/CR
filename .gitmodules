@@ -1,0 +1,3 @@
+[submodule "ccNOos_Tests"]
+	path = ccNOos_Tests
+	url = https://github.com/InMechaSol/ccNOos_Tests.git
