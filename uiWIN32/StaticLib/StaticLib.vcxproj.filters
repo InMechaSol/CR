@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\ccACU">
+      <UniqueIdentifier>{a4b8136a-5569-4516-9271-87279976b779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS">
+      <UniqueIdentifier>{d5df40fa-c2a7-40b8-a1d0-fbf1d4d47f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\ccNOos">
+      <UniqueIdentifier>{61fc77a7-dc2c-4786-9b1b-e2f8ff95f7b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU">
+      <UniqueIdentifier>{664961bf-881f-4acf-a1c3-c42d16c9b07b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS">
+      <UniqueIdentifier>{f81fd082-d316-40b1-a02c-742e459d10e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\ccNOos">
+      <UniqueIdentifier>{e2d4ed74-e0fc-4eb4-8e07-f055de0f375d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\APIComputeModules">
+      <UniqueIdentifier>{f93d4e2e-95d8-42f2-a4d9-a72ccb20d54b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ComputeModules">
+      <UniqueIdentifier>{5b178b63-b451-41f3-8ffe-70eba54f173e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\DeviceComputeModules">
+      <UniqueIdentifier>{8293940f-9676-48b1-9ac2-0fab314863a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\Tests">
+      <UniqueIdentifier>{3689e731-5b6e-4f02-8e19-4bb4537ef472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\APIComputeModules">
+      <UniqueIdentifier>{408c4f09-330e-4345-aeb2-33c9f4204f5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ComputeModules">
+      <UniqueIdentifier>{c438d8a8-ee58-4650-aae6-947808a9518f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\DeviceComputeModules">
+      <UniqueIdentifier>{4db0c0f0-b592-4541-9415-7ccb31564c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\Tests">
+      <UniqueIdentifier>{c56bb5b2-95d2-469c-a042-5d2e0d8e205a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\exeThread">
+      <UniqueIdentifier>{841e945d-62ae-4c22-836b-7579d30cbe1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\serialComms">
+      <UniqueIdentifier>{3fd27f0b-02ef-47f9-9d1f-8650a7695963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\stdIOComms">
+      <UniqueIdentifier>{1e89dc5e-7aae-41d7-96e8-cbfab6a7a8eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\tcpComms">
+      <UniqueIdentifier>{03d56409-644c-45b5-b634-9640b5ea832d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\udpComms">
+      <UniqueIdentifier>{a7ef02fc-52dd-40c5-9847-7be7cb3239fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\tests">
+      <UniqueIdentifier>{c79d5063-1fc5-436b-9fd8-359fb42b8394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\exeThread">
+      <UniqueIdentifier>{427d35a6-f246-4429-8d6b-b2b9825d4621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\tests">
+      <UniqueIdentifier>{391d13c3-4781-4241-8337-728c764eb574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\udpComms">
+      <UniqueIdentifier>{f8a3aa10-60a5-4a3d-8811-a0ca4882a053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\tcpComms">
+      <UniqueIdentifier>{e3a65f8d-b2d4-4485-b3af-e338e393ce59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\stdIOComms">
+      <UniqueIdentifier>{293dc46b-b38e-4e21-af0c-912c052daca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\serialComms">
+      <UniqueIdentifier>{d39e81ac-bf21-4183-bb0f-eed0ea3f6174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\osExecutionSystem">
+      <UniqueIdentifier>{2d84cb17-cb10-4839-8925-ea2f777f8e9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\osExecutionSystem">
+      <UniqueIdentifier>{54c3eedf-a9f4-4e47-85b3-3b568615ce5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\ccNOos\ccLibs">
+      <UniqueIdentifier>{48ec9e7c-fc79-4b84-8bae-c1e63998d7c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\ccNOos\ccLibs\acs">
+      <UniqueIdentifier>{61fd6fe9-e3d7-4d49-9e2e-e1bdba6d933b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\ccNOos\ccLibs\mcs">
+      <UniqueIdentifier>{2a15005c-8895-4953-a312-08f423aa3ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\ccNOos\computeModule">
+      <UniqueIdentifier>{5595aeb0-8168-4acb-85b9-4508ece554ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\ccNOos\consoleMenu">
+      <UniqueIdentifier>{725afa23-2edd-41f9-9eac-556a4f55f9a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\ccNOos\executionSystem">
+      <UniqueIdentifier>{8085b51d-27f6-44f3-9f37-2684c6003de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\ccNOos\ioDevice">
+      <UniqueIdentifier>{0a9ff578-74c5-4e5f-914d-4ec1bb1dbe1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ccACU\ccOS\ccNOos\tests">
+      <UniqueIdentifier>{c37e613d-bee0-49d0-bed0-f501524e07a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\ccNOos\ccLibs">
+      <UniqueIdentifier>{e92a13be-81d0-482e-95d0-52e8070dfc09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\ccNOos\ccLibs\acs">
+      <UniqueIdentifier>{f12bef11-ea96-4511-aa8c-37f557cc55ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\ccNOos\ccLibs\mcs">
+      <UniqueIdentifier>{8112483d-cdc6-47ea-a0fd-ea52c64b4974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\ccNOos\computeModule">
+      <UniqueIdentifier>{eac79557-c744-4da0-9fc4-de786afac9bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\ccNOos\consoleMenu">
+      <UniqueIdentifier>{d999534d-9a5c-48ae-a3da-11d9b6c58a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\ccNOos\executionSystem">
+      <UniqueIdentifier>{738cf270-d294-4644-9fa8-f70bd65236a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\ccNOos\ioDevice">
+      <UniqueIdentifier>{f94fe9a6-67d8-4d86-b102-88764ed6fc21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ccACU\ccOS\ccNOos\tests">
+      <UniqueIdentifier>{84a9bf2b-844f-414a-84e0-8ea541c165c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\AttensUIExample.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\ccNOos_tests.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\SatComACSExample.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\SatComPowerMeterExample.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\SysTickExample.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\AttensUIExample.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\ccNOos_tests.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\Platform_Win32.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\SatComACSExample.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\SatComPowerMeterExample.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\tests\SysTickExample.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\ioDevice\io_device.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\ioDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\ioDevice\io_device.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\ioDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\executionSystem\execution_system.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\executionSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\executionSystem\version_config.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\executionSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\executionSystem\execution_system.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\executionSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\consoleMenu\console_menu.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\consoleMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\consoleMenu\console_menu.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\consoleMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\computeModule\compute_module.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\computeModule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\computeModule\compute_module.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\computeModule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\ccLibs\mcs\motionControl.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\ccLibs\mcs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\ccLibs\acs\ADRF6650.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\ccLibs\acs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\ccLibs\acs\ADRF6650_Map.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\ccLibs\acs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\ccLibs\acs\LTC2360.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\ccLibs\acs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ccACU\ccOS\ccNOos\ccLibs\acs\satComControl.h">
+      <Filter>Header Files\ccACU\ccOS\ccNOos\ccLibs\acs</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="StaticLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\tests\AttensUIExample.cpp">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\tests\ccNOos_tests_class.cpp">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\tests\SatComACSExample.cpp">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\tests\SatComPowerMeterExample.cpp">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\tests\SysTickExample.cpp">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\ioDevice\io_device_class.cpp">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\ioDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\executionSystem\execution_system_class.cpp">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\executionSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\consoleMenu\console_menu_class.cpp">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\consoleMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\computeModule\compute_module_class.cpp">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\computeModule</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\ccLibs\acs\ADRF6650.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\ccLibs\acs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\ccLibs\acs\LTC2360.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\ccLibs\acs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\ccLibs\acs\satComControl.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\ccLibs\acs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ccACU\ccOS\ccNOos\ccLibs\mcs\motionControl.c">
+      <Filter>Source Files\ccACU\ccOS\ccNOos\ccLibs\mcs</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
