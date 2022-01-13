@@ -1,1 +1,16 @@
 /uiDotNet/Libs/ClassLibrary_netFramework/obj
+/uiWIN32/FlatConsoleTest/Debug
+/uiWIN32/FlatConsoleTest/ADRF6650.cpp
+/uiWIN32/FlatConsoleTest/AttensUIExample.cpp
+/uiWIN32/FlatConsoleTest/ccNOos_tests_class.cpp
+/uiWIN32/FlatConsoleTest/compute_module_class.cpp
+/uiWIN32/FlatConsoleTest/console_menu_class.cpp
+/uiWIN32/FlatConsoleTest/execution_system_class.cpp
+/uiWIN32/FlatConsoleTest/io_device_class.cpp
+/uiWIN32/FlatConsoleTest/LTC2360.cpp
+/uiWIN32/FlatConsoleTest/motionControl.cpp
+/uiWIN32/FlatConsoleTest/SatComACSExample.cpp
+/uiWIN32/FlatConsoleTest/satComControl.cpp
+/uiWIN32/FlatConsoleTest/SatComPowerMeterExample.cpp
+/uiWIN32/FlatConsoleTest/SysTickExample.cpp
+/uiWIN32/FlatConsoleTest/WIN32_Console.cpp
