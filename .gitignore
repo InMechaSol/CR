@@ -16,3 +16,6 @@
 /uiWIN32/FlatConsoleTest/WIN32_Console.cpp
 /uiDotNet/Framework/IMS_Universe/obj
 /uiDotNet/Libs/ccLib_netCore/obj
+/uiDotNet/Libs/ClassLibrary_netFramework
+/uiDotNet/Framework/IMS_Universe/bin
+/uiDotNet/Libs/ccLib_netCore/bin
