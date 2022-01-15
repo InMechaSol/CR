@@ -15,46 +15,43 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WIN32_Console.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\AttensUIExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ADRF6650.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\ccNOos_tests_class.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AttensUIExample.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\compute_module_class.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ccNOos_tests_class.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\console_menu_class.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="compute_module_class.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\execution_system_class.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="console_menu_class.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\io_device_class.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="execution_system_class.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\LTC2360.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="io_device_class.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\motionControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LTC2360.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\SatComACSExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="motionControl.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\satComControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SatComACSExample.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\SatComPowerMeterExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="satComControl.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\SysTickExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SatComPowerMeterExample.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SysTickExample.cpp">
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\WIN32_Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

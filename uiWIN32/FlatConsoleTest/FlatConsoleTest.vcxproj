@@ -10,6 +10,21 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\AttensUIExample.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\ccNOos_tests_class.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\compute_module_class.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\console_menu_class.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\execution_system_class.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\io_device_class.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\LTC2360.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\motionControl.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\SatComACSExample.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\satComControl.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\SatComPowerMeterExample.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\SysTickExample.cpp" />
+    <ClCompile Include="..\..\ccNOos_Tests\WIN32_Console\Debug_FlatFiles\WIN32_Console.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -77,22 +92,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="ADRF6650.cpp" />
-    <ClCompile Include="AttensUIExample.cpp" />
-    <ClCompile Include="ccNOos_tests_class.cpp" />
-    <ClCompile Include="compute_module_class.cpp" />
-    <ClCompile Include="console_menu_class.cpp" />
-    <ClCompile Include="execution_system_class.cpp" />
-    <ClCompile Include="io_device_class.cpp" />
-    <ClCompile Include="LTC2360.cpp" />
-    <ClCompile Include="motionControl.cpp" />
-    <ClCompile Include="SatComACSExample.cpp" />
-    <ClCompile Include="satComControl.cpp" />
-    <ClCompile Include="SatComPowerMeterExample.cpp" />
-    <ClCompile Include="SysTickExample.cpp" />
-    <ClCompile Include="WIN32_Console.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

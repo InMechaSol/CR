@@ -14,3 +14,5 @@
 /uiWIN32/FlatConsoleTest/SatComPowerMeterExample.cpp
 /uiWIN32/FlatConsoleTest/SysTickExample.cpp
 /uiWIN32/FlatConsoleTest/WIN32_Console.cpp
+/uiDotNet/Framework/IMS_Universe/obj
+/uiDotNet/Libs/ccLib_netCore/obj
