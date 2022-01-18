@@ -30,6 +30,9 @@ namespace IMS_Universe
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("First Command");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Process Command List", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,6 +56,14 @@ namespace IMS_Universe
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.treeView2 = new System.Windows.Forms.TreeView();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.propertyGrid2 = new System.Windows.Forms.PropertyGrid();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabControl4 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
@@ -78,6 +89,17 @@ namespace IMS_Universe
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
+            this.splitContainer5.Panel1.SuspendLayout();
+            this.splitContainer5.Panel2.SuspendLayout();
+            this.splitContainer5.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.tabControl4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -166,7 +188,7 @@ namespace IMS_Universe
             // 
             this.splitContainer3.Panel2.Controls.Add(this.tabControl3);
             this.splitContainer3.Size = new System.Drawing.Size(217, 404);
-            this.splitContainer3.SplitterDistance = 299;
+            this.splitContainer3.SplitterDistance = 183;
             this.splitContainer3.TabIndex = 0;
             // 
             // tabControl1
@@ -178,7 +200,7 @@ namespace IMS_Universe
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(215, 297);
+            this.tabControl1.Size = new System.Drawing.Size(215, 181);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -187,7 +209,7 @@ namespace IMS_Universe
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(207, 269);
+            this.tabPage1.Size = new System.Drawing.Size(207, 153);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Repository Config";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -200,7 +222,7 @@ namespace IMS_Universe
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
             this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(201, 263);
+            this.treeView1.Size = new System.Drawing.Size(201, 147);
             this.treeView1.TabIndex = 0;
             this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
             // 
@@ -239,7 +261,7 @@ namespace IMS_Universe
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(207, 269);
+            this.tabPage2.Size = new System.Drawing.Size(207, 153);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -253,7 +275,7 @@ namespace IMS_Universe
             this.tabControl3.Location = new System.Drawing.Point(0, 0);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(215, 99);
+            this.tabControl3.Size = new System.Drawing.Size(215, 215);
             this.tabControl3.TabIndex = 0;
             // 
             // tabPage5
@@ -262,7 +284,7 @@ namespace IMS_Universe
             this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(207, 71);
+            this.tabPage5.Size = new System.Drawing.Size(207, 187);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "Properties";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -272,7 +294,7 @@ namespace IMS_Universe
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(3, 3);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(201, 65);
+            this.propertyGrid1.Size = new System.Drawing.Size(201, 181);
             this.propertyGrid1.TabIndex = 0;
             // 
             // tabPage6
@@ -280,7 +302,7 @@ namespace IMS_Universe
             this.tabPage6.Location = new System.Drawing.Point(4, 24);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(207, 71);
+            this.tabPage6.Size = new System.Drawing.Size(207, 187);
             this.tabPage6.TabIndex = 1;
             this.tabPage6.Text = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -319,13 +341,117 @@ namespace IMS_Universe
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.splitContainer4);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(569, 297);
             this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.Text = "External Process Control";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Cursor = System.Windows.Forms.Cursors.VSplit;
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer4.Name = "splitContainer4";
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.treeView2);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.splitContainer5);
+            this.splitContainer4.Size = new System.Drawing.Size(563, 291);
+            this.splitContainer4.SplitterDistance = 92;
+            this.splitContainer4.TabIndex = 0;
+            // 
+            // treeView2
+            // 
+            this.treeView2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView2.Location = new System.Drawing.Point(0, 0);
+            this.treeView2.Name = "treeView2";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "First Command";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Process Command List";
+            this.treeView2.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+            this.treeView2.Size = new System.Drawing.Size(92, 291);
+            this.treeView2.TabIndex = 0;
+            this.treeView2.DoubleClick += new System.EventHandler(this.treeView2_DoubleClick);
+            // 
+            // splitContainer5
+            // 
+            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer5.Name = "splitContainer5";
+            this.splitContainer5.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer5.Panel1
+            // 
+            this.splitContainer5.Panel1.Controls.Add(this.propertyGrid2);
+            // 
+            // splitContainer5.Panel2
+            // 
+            this.splitContainer5.Panel2.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer5.Size = new System.Drawing.Size(467, 291);
+            this.splitContainer5.SplitterDistance = 124;
+            this.splitContainer5.TabIndex = 0;
+            // 
+            // propertyGrid2
+            // 
+            this.propertyGrid2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGrid2.Location = new System.Drawing.Point(0, 0);
+            this.propertyGrid2.Name = "propertyGrid2";
+            this.propertyGrid2.Size = new System.Drawing.Size(467, 124);
+            this.propertyGrid2.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(467, 163);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(461, 10);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(184, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Process Command List";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(3, 19);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(461, 141);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
             // 
             // tabPage4
             // 
@@ -384,6 +510,7 @@ namespace IMS_Universe
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
             this.Text = "IMS Universe";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -406,6 +533,17 @@ namespace IMS_Universe
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
+            this.splitContainer5.Panel1.ResumeLayout(false);
+            this.splitContainer5.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
+            this.splitContainer5.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControl4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -442,6 +580,14 @@ namespace IMS_Universe
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.SplitContainer splitContainer4;
+        private System.Windows.Forms.TreeView treeView2;
+        private System.Windows.Forms.SplitContainer splitContainer5;
+        private System.Windows.Forms.PropertyGrid propertyGrid2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

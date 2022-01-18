@@ -12,71 +12,94 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 namespace IMS_Universe
-{
+{    
     public partial class Form1 : Form
     {
         bool configLoaded = false;
-        bool updateConfigflag = true;
-        IMSConfigStruct IMSConfiguration = new IMSConfigStruct();   // from Library
-        repoTreeNode RepositoryTreeRootNode = new repoTreeNode();
+        
+
+        
+        RepoManager RepositoryManager;      // from Library
+        ExecutionSystem UniversExeSys;      // from Library
+
+        List<ComputeModule> exeSysModules;
 
         public Form1()
         {
-            IMSConfiguration.Path2RootRepository = Path.GetFullPath("C:\\IMS");
-
             InitializeComponent();
-        }
 
+            RepositoryManager = new RepoManager();
+
+            exeSysModules = new List<ComputeModule>();
+            exeSysModules.Add(RepositoryManager);
+
+
+            UniversExeSys = new ExecutionSystem(exeSysModules);
+
+            treeView2.Nodes[0].Nodes[0].Tag = new ExtProcCmdStruct();
+            ((ExtProcCmdStruct)treeView2.Nodes[0].Nodes[0].Tag).workingDirString = "C:\\IMS";
+            ((ExtProcCmdStruct)treeView2.Nodes[0].Nodes[0].Tag).cmdString = "C:\\Program Files\\Git\\bin\\git.exe";
+            ((ExtProcCmdStruct)treeView2.Nodes[0].Nodes[0].Tag).cmdArguments = "remote -v";
+            ((ExtProcCmdStruct)treeView2.Nodes[0].Nodes[0].Tag).timeOutms = 5000;
+        }
+#region System.Window.Forms Implementations of Interface Functions
         void loadConfigFromFile()
         {
             byte[] jsonString;
             IMSConfigStruct tempConfig;
 
             // check default location
-            if (File.Exists(Path.GetFullPath(IMSConfiguration.Path2RootRepository + "\\imsConf.json")))
+            if (File.Exists(Path.GetFullPath(RepositoryManager.IMSConfiguration.Path2RootRepository + "\\imsConf.json")))
             {
-                jsonString = File.ReadAllBytes(Path.GetFullPath(IMSConfiguration.Path2RootRepository + "\\imsConf.json"));
+                jsonString = File.ReadAllBytes(Path.GetFullPath(RepositoryManager.IMSConfiguration.Path2RootRepository + "\\imsConf.json"));
                 tempConfig = RepoManager.CreateIMSConfigStructJSON(ref jsonString);
                 if (File.Exists(Path.GetFullPath(tempConfig.Path2RootRepository + "\\imsConf.json")))
                 {
-                    IMSConfiguration = tempConfig;
+                    RepositoryManager.IMSConfiguration = tempConfig;
                 }
             }
             else
             {
-                MessageBox.Show("The imsConf.json files was not found at the directory:\n" + IMSConfiguration.Path2RootRepository + "\nTrying Default Directory C:\\IMS\\imsConf.json", "Not Found" );
+                MessageBox.Show("The imsConf.json files was not found at the directory:\n" + RepositoryManager.IMSConfiguration.Path2RootRepository + "\nTrying Default Directory C:\\IMS\\imsConf.json", "Not Found" );
                 if (File.Exists(Path.GetFullPath("C:\\IMS\\imsConf.json")))
                 {
                     jsonString = File.ReadAllBytes(Path.GetFullPath("C:\\IMS\\imsConf.json"));
                     tempConfig = RepoManager.CreateIMSConfigStructJSON(ref jsonString);
                     if (File.Exists(Path.GetFullPath(tempConfig.Path2RootRepository + "\\imsConf.json")))
                     {
-                        IMSConfiguration = tempConfig;
-                        updateConfigflag = true;
+                        RepositoryManager.IMSConfiguration = tempConfig;
+                        RepositoryManager.newConfigLoaded = true;
                         configLoaded = true;
                         return;
                     }
                 }
                 MessageBox.Show("The imsConf.json files was not found at the default directory.\nCreating Default Configuration to be Saved", "Not Found");
-                IMSConfiguration = RepoManager.CreateDefaultIMSConfigStruct();
+                RepositoryManager.IMSConfiguration = RepoManager.CreateDefaultIMSConfigStruct();
 
             }
-            updateConfigflag = true;
+            RepositoryManager.newConfigLoaded = true;
             configLoaded = true;
             // otherwise prompt for location
         }
         void unloadConfig()
         {
-            IMSConfiguration.Path2RootRepository = "";
-            updateConfigflag = true;
+            RepositoryManager.IMSConfiguration.Path2RootRepository = "";
+            RepositoryManager.updateConfigflag = true;
             configLoaded = false;
         }
         void saveConfigtoFile()
         {
             // save to default location
             //IMSConfigStruct tempStruct = RepoManager.CreateDefaultIMSConfigStruct();
-            byte[] jsonString = RepoManager.SerializeIMSConfigStructJSON(ref IMSConfiguration);
-            File.WriteAllBytes(Path.GetFullPath(IMSConfiguration.Path2RootRepository + "\\imsConf.json"), jsonString);
+            byte[] jsonString = RepoManager.SerializeIMSConfigStructJSON(RepositoryManager.IMSConfiguration);
+            File.WriteAllBytes(Path.GetFullPath(RepositoryManager.IMSConfiguration.Path2RootRepository + "\\imsConf.json"), jsonString);
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            updateRepoManagerTreeView();
+            updateStatusStrip();
+            updateMenuBar();
+            RepositoryManager.updateConfigflag = false;
         }
         TreeNode fromGUItreeNode(guiTreeNode nodeIn)
         {
@@ -93,39 +116,31 @@ namespace IMS_Universe
         }
         void updateRepoManagerTreeView()
         {
-            if(updateConfigflag)
+            if(RepositoryManager.updateConfigflag)
             {
                 treeView1.Nodes.Clear();
-
                 if (configLoaded)
-                {
-
-                    guiTreeNode IMSConfigNode = RepoManager.createGUItreeNodefromConfig(IMSConfiguration);
-                    treeView1.Nodes.Add(fromGUItreeNode(IMSConfigNode));
-
-                    RepositoryTreeRootNode = RepoManager.createREPOtreeNodefromRepoList(IMSConfiguration.Repositories);
-                    treeView1.Nodes.Add(fromGUItreeNode(RepositoryTreeRootNode));
-
+                {                    
+                    treeView1.Nodes.Add(fromGUItreeNode(RepositoryManager.IMSConfigNode));                    
+                    treeView1.Nodes.Add(fromGUItreeNode(RepositoryManager.RepositoryTreeRootNode));  
                     treeView1.ExpandAll();
-                }
-                    
+                }                    
                 treeView1.Refresh();
             }
         }
-
         void updateStatusStrip()
         {
-            if(updateConfigflag)
+            if(RepositoryManager.updateConfigflag)
             {
                 if (configLoaded)
-                    toolStripStatusLabel1.Text = Path.GetFullPath(IMSConfiguration.Path2RootRepository + "\\imsConf.json");
+                    toolStripStatusLabel1.Text = Path.GetFullPath(RepositoryManager.IMSConfiguration.Path2RootRepository + "\\imsConf.json");
                 else
                     toolStripStatusLabel1.Text = "Not Loaded";
             }
         }
         void updateMenuBar()
         {
-            if(updateConfigflag)
+            if(RepositoryManager.updateConfigflag)
             {
                 if (configLoaded)
                 {
@@ -143,7 +158,8 @@ namespace IMS_Universe
                 }
             }
         }
-
+#endregion
+#region Callbacks for Systems.Windows.Forms objects
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!configLoaded)
@@ -169,19 +185,46 @@ namespace IMS_Universe
         {
             saveConfigtoFile();
         }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            updateRepoManagerTreeView();
-            updateStatusStrip();
-            updateMenuBar();
-            updateConfigflag = false;
-        }
-
+        
         private void treeView1_DoubleClick(object sender, EventArgs e)
         {
             propertyGrid1.SelectedObject = treeView1.SelectedNode.Tag;
             propertyGrid1.Refresh();
         }
+
+
+        private void treeView2_DoubleClick(object sender, EventArgs e)
+        {
+            propertyGrid2.SelectedObject = treeView2.SelectedNode.Tag;
+            propertyGrid2.Refresh();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ExtProcCmdStruct thisCmd = (ExtProcCmdStruct)treeView2.Nodes[0].Nodes[0].Tag;
+
+            if(thisCmd.workingDirString!="")
+            {
+                if (Directory.Exists(Path.GetFullPath(thisCmd.workingDirString)))
+                {
+                    if (thisCmd.cmdString != "")
+                    {
+                        if (File.Exists(Path.GetFullPath(thisCmd.cmdString)))
+                        {
+                            List<ExtProcCmdStruct> cmdsIn = new List<ExtProcCmdStruct>();
+                            cmdsIn.Add(thisCmd);
+                            UniversExeSys.ThirdPartyTools.executeCMDS(cmdsIn);
+                            richTextBox1.Text = "";
+                            richTextBox1.Text += thisCmd.outANDerrorResults;
+                            return;
+                        }  
+                    }
+                    MessageBox.Show($"The Process Command Specified Does Not Exist!\n{thisCmd.cmdString}", "Bad Command Path");
+                    return;
+                }
+            }
+            MessageBox.Show($"The Working Directory Specified Does Not Exist!\n{thisCmd.workingDirString}", "Bad Working Directory");
+        }
+#endregion
     }
 }

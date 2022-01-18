@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.ComponentModel;
 
 namespace ccLib_netCore
@@ -85,14 +86,137 @@ namespace ccLib_netCore
         [Category("repo Tree Node")]
         [Description("Indication of a 'dirty' working directory")]
         [DisplayName("hasChanges")]
-        public string hasChanges { set; get; }
+        public bool hasChanges { set; get; }
         [Category("repo Tree Node")]
         [Description("Indication of a working connection to Repository remote origin")]
         [DisplayName("isReachable")]
         public bool isReachable { set; get; }
+        [Category("repo Tree Node")]
+        [Description("Path to local working directory")]
+        [DisplayName("workingDir")]
+        public string workingDir { set; get; }
+        public repoTreeNode() {; }
+        public repoTreeNode(repoTreeNode parentNode, RepoNodeStruct configStruct)
+        {
+            Nodes = new List<guiTreeNode>();
+            ParentNodes = new List<guiTreeNode>(2);
+            RepoConfig = configStruct;
+            if (parentNode.ParentNodes != null) 
+            { 
+                if (parentNode.ParentNodes.Count > 0) 
+                { 
+                    ParentNodes.Add(parentNode.ParentNodes[0]); 
+                } 
+            }
+            if (ParentNodes.Count == 0)
+                ParentNodes.Add(parentNode);
+            ParentNodes.Add(parentNode);
+
+            Name = RepoConfig.name;
+            Text = RepoConfig.name;
+            Tag = this;
+            ToolTipText = RepoConfig.url;
+        }        
     }
-    public class RepoManager
+    public class RepoManager:ComputeModule
     {
+        
+        public IMSConfigStruct IMSConfiguration { set; get; }
+        public guiTreeNode IMSConfigNode { set; get; }
+        public repoTreeNode RepositoryTreeRootNode { set; get; }
+        public bool newConfigLoaded { get; set; } = false;
+        public bool updateConfigflag = true;
+        public RepoManager()
+        {
+            IMSConfiguration = new IMSConfigStruct();
+            IMSConfiguration.Path2RootRepository = Path.GetFullPath("C:\\IMS");
+        }
+        protected override void Loop()
+        {
+            // if a new file has been loaded, parse and build nodes
+            if(newConfigLoaded)
+            {
+                BuildNodes();
+                newConfigLoaded = false;
+                updateConfigflag = true;
+            }
+        }
+        protected override void Setup()
+        {
+            NoAlarmsNoWarnings = true;
+        }
+        public override void SysTick()
+        {
+            ;
+        }
+        public string expectedWorkingDirectoryPath(repoTreeNode rNode)
+        {
+            string outstrig = "";
+
+            List<string> parentNames = new List<string>();
+
+            bool keepGoing = true;
+            repoTreeNode thisNode = rNode;
+            do
+            {
+                parentNames.Add(thisNode.Name);
+                if (thisNode.ParentNodes != null)
+                {
+                    if (thisNode.ParentNodes[0] == thisNode.ParentNodes[1])
+                    {
+                        keepGoing = false;
+                    }
+                    else
+                        thisNode = (repoTreeNode)thisNode.ParentNodes[1];
+                }
+                else
+                    keepGoing = false;
+
+            } while (keepGoing);
+
+            outstrig += IMSConfiguration.Path2RootRepository;
+            for (int i = parentNames.Count - 2; i >= 0; i--)
+            {
+                outstrig += "\\" + parentNames[i];
+            }
+            return outstrig;
+        }
+        private void BuildNodes()
+        {            
+            IMSConfigNode = createGUItreeNodefromConfig(IMSConfiguration);
+            RepositoryTreeRootNode = createREPOtreeNodefromRepoList(IMSConfiguration.Repositories);
+            RecursiveDetectWorkingDirectoryStatus((repoTreeNode)RepositoryTreeRootNode.Nodes[0]);
+        }
+
+        public void DetectWorkingDirectoryStatus(repoTreeNode rootRepoNode)
+        {
+            rootRepoNode.isReachable = true;
+            rootRepoNode.hasChanges = true;
+
+            string sName = expectedWorkingDirectoryPath(rootRepoNode);
+
+            if (Directory.Exists(sName))
+            {
+                rootRepoNode.workingDir = sName;
+            }            
+            else
+                rootRepoNode.workingDir = "Not Detected";
+
+
+
+
+        }
+        public void RecursiveDetectWorkingDirectoryStatus(repoTreeNode rootRepoNode)
+        {
+            // detect status for self
+            DetectWorkingDirectoryStatus(rootRepoNode);
+
+            // detect status of branches recursively
+            foreach (repoTreeNode rNode in rootRepoNode.Nodes)
+            {
+                RecursiveDetectWorkingDirectoryStatus(rNode);
+            }
+        }
         public static guiTreeNode createGUItreeNodefromConfig(IMSConfigStruct refConfig)
         {
             guiTreeNode tempNode = new guiTreeNode();
@@ -221,27 +345,42 @@ namespace ccLib_netCore
                 counter++;
             }
 
-            repoTreeNode tempSubNode = new repoTreeNode();
-            tempSubNode.Nodes = new List<guiTreeNode>();
-            tempSubNode.ParentNodes = new List<guiTreeNode>(2);
-            tempSubNode.RepoConfig = refList[counter];
-            tempSubNode.ParentNodes.Add(tempNode);
-            tempSubNode.ParentNodes.Add(tempNode);
-            tempSubNode.Name = tempSubNode.RepoConfig.name;
-            tempSubNode.Text = tempSubNode.RepoConfig.name;
-            tempSubNode.Tag = tempSubNode;
+            repoTreeNode tempSubNode = new repoTreeNode(tempNode, refList[counter]);
 
             ///////////////
             //// Recursive Function Call - Build all Repo Nodes
             //////////////
-            BuildallRepoNodes(tempSubNode);
+            BuildallRepoNodes(tempSubNode, refList);
 
             tempNode.Nodes.Add(tempSubNode);
             return tempNode;
         }
-        public static void BuildallRepoNodes(repoTreeNode tempSubNode)
+        public static void BuildallRepoNodes(repoTreeNode tempSubNode, List<RepoNodeStruct> refList)
         {
+            // Loop through all child nodes of current node
+            repoTreeNode currentNode = tempSubNode;
+            if (currentNode.RepoConfig.submodnames != null)
+            {
+                int counter = 0;
+                foreach (string s in currentNode.RepoConfig.submodnames)
+                {
+                    RepoNodeStruct childConfig = refList.Find(r => r.name == s);
+                    repoTreeNode nextChildNode = new repoTreeNode(currentNode, childConfig);
+                    
 
+                    if(childConfig.submodnames!=null)
+                    {
+                        //foreach(string st in childConfig.submodnames)
+                        //{
+                            if(childConfig.submodnames.Length>0)
+                                BuildallRepoNodes(nextChildNode,refList);
+                        //}
+                    }
+
+                    currentNode.Nodes.Add(nextChildNode);
+                    counter++;
+                }
+            }
         }
         public static IMSConfigStruct CreateDefaultIMSConfigStruct()
         {
@@ -322,7 +461,7 @@ namespace ccLib_netCore
         {            
             return Platform_Serialization.tryParseRepoNodeStruct(ref jsonString);
         }
-        public static byte[] SerializeRepoNodeStructJSON(ref RepoNodeStruct outStruct)
+        public static byte[] SerializeRepoNodeStructJSON(RepoNodeStruct outStruct)
         {            
             return Platform_Serialization.packageRepoNodeStruct(ref outStruct);
         }
@@ -330,10 +469,12 @@ namespace ccLib_netCore
         {
             return Platform_Serialization.tryParseIMSConfigStruct(ref jsonString);
         }
-        public static byte[] SerializeIMSConfigStructJSON(ref IMSConfigStruct outStruct)
+        public static byte[] SerializeIMSConfigStructJSON(IMSConfigStruct outStruct)
         {
             return Platform_Serialization.packageIMSConfigStruct(ref outStruct);
         }
+
+
         
     }
 }
