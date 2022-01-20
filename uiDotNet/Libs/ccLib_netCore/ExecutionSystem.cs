@@ -36,7 +36,8 @@ namespace ccLib_netCore
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker1.DoWork += BackgroundWorker1_DoWork;
-            ThirdPartyTools = new ExtProcManager();
+            ThirdPartyTools = new ExtProcManager(this);
+            uComms = new UniverseCommunicator();
         }
 
         private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -49,6 +50,9 @@ namespace ccLib_netCore
         {
             foreach (ComputeModule cm in exeSysModules)
                 cm.SysTick();
+
+            if (uComms != null)
+                uComms.cyclicManageMsgQueue();
 
             if (!backgroundWorker1.IsBusy)
                 backgroundWorker1.RunWorkerAsync();

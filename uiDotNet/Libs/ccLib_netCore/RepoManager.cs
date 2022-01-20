@@ -118,18 +118,25 @@ namespace ccLib_netCore
             ToolTipText = RepoConfig.url;
         }        
     }
-    public class RepoManager:ComputeModule
+    public class RepoManager : ComputeModule
     {
-        
+
         public IMSConfigStruct IMSConfiguration { set; get; }
         public guiTreeNode IMSConfigNode { set; get; }
         public repoTreeNode RepositoryTreeRootNode { set; get; }
         public bool newConfigLoaded { get; set; } = false;
         public bool updateConfigflag = true;
+        public bool buildReposFromRemotes { get; set; } = false;
+        string tempDir = Path.GetTempPath() + "RepoManager";
+        string ConfigReposDir;
+        string ReposDir;
+        string ReposDirUverseRoot;
         public RepoManager()
         {
             IMSConfiguration = new IMSConfigStruct();
             IMSConfiguration.Path2RootRepository = Path.GetFullPath("C:\\IMS");
+            ConfigReposDir = tempDir + "\\ConfigurationRepos";
+            ReposDir = tempDir + "\\UniverseRepos";
         }
         protected override void Loop()
         {
@@ -140,6 +147,12 @@ namespace ccLib_netCore
                 newConfigLoaded = false;
                 updateConfigflag = true;
             }
+
+            if(buildReposFromRemotes)
+            {
+                buildReposFromRemotes = false;
+                BuildRepos();
+            }
         }
         protected override void Setup()
         {
@@ -148,6 +161,171 @@ namespace ccLib_netCore
         public override void SysTick()
         {
             ;
+        }
+        public static void DeleteFilesAndFoldersRecursively(string target_dir)
+        {
+            foreach (string file in Directory.GetFiles(target_dir))
+            {
+                File.SetAttributes(file,FileAttributes.Normal);
+                File.Delete(file);
+            }
+
+            foreach (string subDir in Directory.GetDirectories(target_dir))
+            {
+                DeleteFilesAndFoldersRecursively(subDir);
+            }
+
+            System.Threading.Thread.Sleep(1); // This makes the difference between whether it works or not. Sleep(0) is not enough.
+            File.SetAttributes(target_dir, FileAttributes.Directory);
+            Directory.Delete(target_dir);
+        }
+        void copyFilesNFoldersRecurrsive(string sourceDir, string targetDir)
+        {
+            if(!Directory.Exists(targetDir))
+            {
+                Directory.CreateDirectory(targetDir);
+            }
+            foreach(string fstring in Directory.GetFiles(sourceDir))
+            {
+                File.SetAttributes(fstring, FileAttributes.Normal);
+                File.Copy(fstring, targetDir+$"\\{Path.GetFileName(fstring)}");
+            }
+            foreach (string dstring in Directory.GetDirectories(sourceDir))
+                copyFilesNFoldersRecurrsive(dstring, targetDir+$"\\{dstring.Replace(sourceDir,"")}");
+        }
+        void UniversefromConfig(string ParentDirPath, repoTreeNode Node2Transfer)
+        {
+            string configDirPath = ConfigReposDir+$"\\{Node2Transfer.Name}";
+            
+            foreach(string f in Directory.GetFiles(configDirPath))
+            {
+                File.SetAttributes(f, FileAttributes.Normal);
+                string frepo = ParentDirPath + $"\\{Node2Transfer.Name}\\{Path.GetFileName(f)}";                
+                if (!Directory.Exists(Path.GetDirectoryName(frepo)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(frepo));
+                }
+                File.SetAttributes(Path.GetDirectoryName(frepo), FileAttributes.Directory);                  
+                File.Copy(f, frepo);                
+            }
+            foreach (string dstring in Directory.GetDirectories(configDirPath))
+            {
+                string destName = ParentDirPath + $"\\{Node2Transfer.Name}\\{Path.GetFileName(dstring)}";
+                if (dstring.EndsWith(".git"))
+                {
+                    string strippedString = destName.Replace(ReposDir,"").Replace("\\.git","");
+                    if (strippedString.LastIndexOf("\\")==0)
+                    {
+                        ReposDirUverseRoot = strippedString;//this is the root universe repository
+                        copyFilesNFoldersRecurrsive(dstring, destName);
+                    }
+                    else
+                    {
+                        string submodulegitpath = destName.Replace(ReposDirUverseRoot, $"{ReposDirUverseRoot}\\.git\\modules");
+                        copyFilesNFoldersRecurrsive(dstring, submodulegitpath);
+                        string gitText = "gitdir: ";
+                        gitText += Path.GetRelativePath(Path.GetDirectoryName(destName), submodulegitpath);
+                        File.WriteAllText(destName,gitText);                        
+                    }
+                    string moduleFname = destName.Replace(".git", ".gitmodules");
+                    if (File.Exists(moduleFname))
+                        File.Delete(moduleFname);
+                    string modText = "";
+                    foreach (repoTreeNode rNode in Node2Transfer.Nodes)
+                    {
+                        modText += $"[submodule \"{rNode.RepoConfig.name}\"]\n";
+                        modText += $"\tpath = {rNode.RepoConfig.name}\n";
+                        modText += $"\turl = {rNode.RepoConfig.url}\n";
+                    }
+                    File.WriteAllText(moduleFname, modText);
+                }
+                else
+                {
+                    copyFilesNFoldersRecurrsive(dstring, destName);
+                }
+            }
+                
+        }
+        void RecursiveUniversefromConfig(string ParentDirPath, repoTreeNode Node2Transfer)
+        {
+            if (!Directory.Exists(ParentDirPath))
+            {
+                Directory.CreateDirectory(ParentDirPath);
+            }
+            File.SetAttributes(ParentDirPath, FileAttributes.Directory);            
+            UniversefromConfig(ParentDirPath, Node2Transfer);
+            foreach(repoTreeNode rNode in Node2Transfer.Nodes)
+            {
+                RecursiveUniversefromConfig(ParentDirPath+$"\\{Node2Transfer.Name}", rNode);
+            }
+
+        }
+        public void BuildRepos()
+        {
+            List<ExtProcCmdStruct> Cmds = new List<ExtProcCmdStruct>();
+            ExtProcCmdStruct thisCmd;
+            if (IMSConfigNode!=null)
+            {
+                if(IMSConfigNode.Nodes.Count>0)
+                {
+
+                    if (Directory.Exists(ConfigReposDir))
+                    {
+                        exeSysLink.uComms.EnqueMsgString($"Deleting: Begins {ConfigReposDir}");
+                        DeleteFilesAndFoldersRecursively(ConfigReposDir);
+                        exeSysLink.uComms.EnqueMsgString($"Deleting: Completed {ConfigReposDir}");
+                    }
+                    Directory.CreateDirectory(ConfigReposDir);
+
+
+                    foreach (guiTreeNode tNode in IMSConfigNode.Nodes.Find(n => n.Name == "Repositories").Nodes)
+                    {
+                        // build commands to clone into config repos dir
+                        thisCmd = new ExtProcCmdStruct();
+                        thisCmd.cmdString = IMSConfiguration.Path2GitBin;
+                        thisCmd.cmdArguments = $"clone {((RepoNodeStruct)tNode.Tag).url} {Path.GetFullPath(ConfigReposDir + "\\" + ((RepoNodeStruct)tNode.Tag).name)}";
+                        thisCmd.workingDirString = tempDir;
+                        Cmds.Add(thisCmd);
+                    }
+                    ////thisCmd = new ExtProcCmdStruct();
+                    ////thisCmd.cmdString = "explorer";
+                    ////thisCmd.cmdArguments = ConfigReposDir;
+                    ////thisCmd.workingDirString = ConfigReposDir;
+                    ////Cmds.Add(thisCmd);
+                    exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
+                }
+            }
+            if(RepositoryTreeRootNode!=null)
+            {
+                if(RepositoryTreeRootNode.Nodes.Count>0)
+                {
+                    
+                    if (Directory.Exists(ReposDir))
+                    {
+                        exeSysLink.uComms.EnqueMsgString($"Deleting: Begins {ReposDir}");
+                        DeleteFilesAndFoldersRecursively(ReposDir);
+                        exeSysLink.uComms.EnqueMsgString($"Deleting: Completed {ReposDir}");
+                    }
+                    Directory.CreateDirectory(ReposDir);
+
+
+
+                    ///
+
+                    RecursiveUniversefromConfig(ReposDir, (repoTreeNode)RepositoryTreeRootNode.Nodes[0]);
+
+                    ///
+
+
+                    thisCmd = new ExtProcCmdStruct();
+                    thisCmd.cmdString = "explorer";
+                    thisCmd.cmdArguments = ReposDir;
+                    thisCmd.workingDirString = ReposDir;
+                    Cmds.Add(thisCmd);
+                    exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
+
+                }
+            }
         }
         public string expectedWorkingDirectoryPath(repoTreeNode rNode)
         {

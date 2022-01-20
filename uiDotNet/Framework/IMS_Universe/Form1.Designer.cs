@@ -67,6 +67,11 @@ namespace IMS_Universe
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabControl4 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.splitContainer6 = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
@@ -101,15 +106,22 @@ namespace IMS_Universe
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tabControl4.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
+            this.splitContainer6.Panel1.SuspendLayout();
+            this.splitContainer6.Panel2.SuspendLayout();
+            this.splitContainer6.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.configToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1047, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -138,11 +150,12 @@ namespace IMS_Universe
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 515);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1047, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -167,8 +180,8 @@ namespace IMS_Universe
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 404);
-            this.splitContainer1.SplitterDistance = 217;
+            this.splitContainer1.Size = new System.Drawing.Size(1047, 491);
+            this.splitContainer1.SplitterDistance = 282;
             this.splitContainer1.TabIndex = 2;
             // 
             // splitContainer3
@@ -187,8 +200,8 @@ namespace IMS_Universe
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.tabControl3);
-            this.splitContainer3.Size = new System.Drawing.Size(217, 404);
-            this.splitContainer3.SplitterDistance = 183;
+            this.splitContainer3.Size = new System.Drawing.Size(282, 491);
+            this.splitContainer3.SplitterDistance = 221;
             this.splitContainer3.TabIndex = 0;
             // 
             // tabControl1
@@ -200,7 +213,7 @@ namespace IMS_Universe
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(215, 181);
+            this.tabControl1.Size = new System.Drawing.Size(280, 219);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -209,7 +222,7 @@ namespace IMS_Universe
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(207, 153);
+            this.tabPage1.Size = new System.Drawing.Size(272, 191);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Repository Config";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -222,16 +235,19 @@ namespace IMS_Universe
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
             this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(201, 147);
+            this.treeView1.Size = new System.Drawing.Size(266, 185);
             this.treeView1.TabIndex = 0;
             this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
+            this.treeView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseDown);
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.configToolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(111, 26);
+            this.contextMenuStrip1.Text = "Context Menu Text";
             // 
             // configToolStripMenuItem1
             // 
@@ -261,9 +277,9 @@ namespace IMS_Universe
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(207, 153);
+            this.tabPage2.Size = new System.Drawing.Size(272, 191);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "future...";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabControl3
@@ -275,7 +291,7 @@ namespace IMS_Universe
             this.tabControl3.Location = new System.Drawing.Point(0, 0);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(215, 215);
+            this.tabControl3.Size = new System.Drawing.Size(280, 264);
             this.tabControl3.TabIndex = 0;
             // 
             // tabPage5
@@ -284,7 +300,7 @@ namespace IMS_Universe
             this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(207, 187);
+            this.tabPage5.Size = new System.Drawing.Size(272, 236);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "Properties";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -294,7 +310,7 @@ namespace IMS_Universe
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(3, 3);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(201, 181);
+            this.propertyGrid1.Size = new System.Drawing.Size(266, 230);
             this.propertyGrid1.TabIndex = 0;
             // 
             // tabPage6
@@ -302,9 +318,9 @@ namespace IMS_Universe
             this.tabPage6.Location = new System.Drawing.Point(4, 24);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(207, 187);
+            this.tabPage6.Size = new System.Drawing.Size(272, 236);
             this.tabPage6.TabIndex = 1;
-            this.tabPage6.Text = "tabPage6";
+            this.tabPage6.Text = "future...";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // splitContainer2
@@ -323,8 +339,8 @@ namespace IMS_Universe
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl4);
-            this.splitContainer2.Size = new System.Drawing.Size(579, 404);
-            this.splitContainer2.SplitterDistance = 327;
+            this.splitContainer2.Size = new System.Drawing.Size(761, 491);
+            this.splitContainer2.SplitterDistance = 222;
             this.splitContainer2.TabIndex = 0;
             // 
             // tabControl2
@@ -336,7 +352,7 @@ namespace IMS_Universe
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(577, 325);
+            this.tabControl2.Size = new System.Drawing.Size(759, 220);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPage3
@@ -345,7 +361,7 @@ namespace IMS_Universe
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(569, 297);
+            this.tabPage3.Size = new System.Drawing.Size(751, 192);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "External Process Control";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -364,8 +380,8 @@ namespace IMS_Universe
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer5);
-            this.splitContainer4.Size = new System.Drawing.Size(563, 291);
-            this.splitContainer4.SplitterDistance = 92;
+            this.splitContainer4.Size = new System.Drawing.Size(745, 186);
+            this.splitContainer4.SplitterDistance = 120;
             this.splitContainer4.TabIndex = 0;
             // 
             // treeView2
@@ -380,12 +396,13 @@ namespace IMS_Universe
             treeNode2.Text = "Process Command List";
             this.treeView2.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2});
-            this.treeView2.Size = new System.Drawing.Size(92, 291);
+            this.treeView2.Size = new System.Drawing.Size(120, 186);
             this.treeView2.TabIndex = 0;
             this.treeView2.DoubleClick += new System.EventHandler(this.treeView2_DoubleClick);
             // 
             // splitContainer5
             // 
+            this.splitContainer5.Cursor = System.Windows.Forms.Cursors.HSplit;
             this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer5.Location = new System.Drawing.Point(0, 0);
             this.splitContainer5.Name = "splitContainer5";
@@ -398,8 +415,8 @@ namespace IMS_Universe
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer5.Size = new System.Drawing.Size(467, 291);
-            this.splitContainer5.SplitterDistance = 124;
+            this.splitContainer5.Size = new System.Drawing.Size(621, 186);
+            this.splitContainer5.SplitterDistance = 70;
             this.splitContainer5.TabIndex = 0;
             // 
             // propertyGrid2
@@ -407,7 +424,7 @@ namespace IMS_Universe
             this.propertyGrid2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid2.Location = new System.Drawing.Point(0, 0);
             this.propertyGrid2.Name = "propertyGrid2";
-            this.propertyGrid2.Size = new System.Drawing.Size(467, 124);
+            this.propertyGrid2.Size = new System.Drawing.Size(621, 70);
             this.propertyGrid2.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -422,7 +439,7 @@ namespace IMS_Universe
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(467, 163);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(621, 112);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -431,7 +448,7 @@ namespace IMS_Universe
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(461, 10);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(615, 5);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // button1
@@ -447,9 +464,9 @@ namespace IMS_Universe
             // richTextBox1
             // 
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 19);
+            this.richTextBox1.Location = new System.Drawing.Point(3, 14);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(461, 141);
+            this.richTextBox1.Size = new System.Drawing.Size(615, 95);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
@@ -458,9 +475,9 @@ namespace IMS_Universe
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(569, 297);
+            this.tabPage4.Size = new System.Drawing.Size(751, 192);
             this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.Text = "future...";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tabControl4
@@ -472,27 +489,92 @@ namespace IMS_Universe
             this.tabControl4.Location = new System.Drawing.Point(0, 0);
             this.tabControl4.Name = "tabControl4";
             this.tabControl4.SelectedIndex = 0;
-            this.tabControl4.Size = new System.Drawing.Size(577, 71);
+            this.tabControl4.Size = new System.Drawing.Size(759, 263);
             this.tabControl4.TabIndex = 0;
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.splitContainer6);
             this.tabPage7.Location = new System.Drawing.Point(4, 24);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(569, 43);
+            this.tabPage7.Size = new System.Drawing.Size(751, 235);
             this.tabPage7.TabIndex = 0;
-            this.tabPage7.Text = "tabPage7";
+            this.tabPage7.Text = "Universe Communicator";
             this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer6
+            // 
+            this.splitContainer6.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer6.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer6.Name = "splitContainer6";
+            this.splitContainer6.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer6.Panel1
+            // 
+            this.splitContainer6.Panel1.Controls.Add(this.tableLayoutPanel2);
+            // 
+            // splitContainer6.Panel2
+            // 
+            this.splitContainer6.Panel2.Controls.Add(this.richTextBox2);
+            this.splitContainer6.Size = new System.Drawing.Size(745, 229);
+            this.splitContainer6.SplitterDistance = 33;
+            this.splitContainer6.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.Controls.Add(this.comboBox1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button2, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(745, 33);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(3, 3);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(664, 23);
+            this.comboBox1.TabIndex = 0;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.Location = new System.Drawing.Point(673, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(69, 27);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Send Msg";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(745, 192);
+            this.richTextBox2.TabIndex = 0;
+            this.richTextBox2.Text = "";
             // 
             // tabPage8
             // 
             this.tabPage8.Location = new System.Drawing.Point(4, 24);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(569, 43);
+            this.tabPage8.Size = new System.Drawing.Size(751, 235);
             this.tabPage8.TabIndex = 1;
-            this.tabPage8.Text = "tabPage8";
+            this.tabPage8.Text = "future...";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
             // timer1
@@ -504,7 +586,7 @@ namespace IMS_Universe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1047, 537);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -545,6 +627,12 @@ namespace IMS_Universe
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControl4.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
+            this.splitContainer6.Panel1.ResumeLayout(false);
+            this.splitContainer6.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
+            this.splitContainer6.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -588,6 +676,11 @@ namespace IMS_Universe
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.SplitContainer splitContainer6;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.RichTextBox richTextBox2;
     }
 }
 

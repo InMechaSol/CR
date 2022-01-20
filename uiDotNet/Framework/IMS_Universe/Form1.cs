@@ -43,6 +43,16 @@ namespace IMS_Universe
             ((ExtProcCmdStruct)treeView2.Nodes[0].Nodes[0].Tag).timeOutms = 5000;
         }
 #region System.Window.Forms Implementations of Interface Functions
+        void updateUverseCommunicator()
+        {
+            string thisString = null;
+            do
+            {
+                thisString = UniversExeSys.uComms.OutputMessage2Display();
+                if (thisString != null)
+                    richTextBox2.AppendText(thisString);
+            } while (thisString != null);
+        }
         void loadConfigFromFile()
         {
             byte[] jsonString;
@@ -99,6 +109,7 @@ namespace IMS_Universe
             updateRepoManagerTreeView();
             updateStatusStrip();
             updateMenuBar();
+            updateUverseCommunicator();
             RepositoryManager.updateConfigflag = false;
         }
         TreeNode fromGUItreeNode(guiTreeNode nodeIn)
@@ -124,10 +135,40 @@ namespace IMS_Universe
                     treeView1.Nodes.Add(fromGUItreeNode(RepositoryManager.IMSConfigNode));                    
                     treeView1.Nodes.Add(fromGUItreeNode(RepositoryManager.RepositoryTreeRootNode));  
                     treeView1.ExpandAll();
-                }                    
+                    ToolStripItem thisItem = new ToolStripSeparator();
+                    contextMenuStrip1.Items.Add(thisItem);
+                    thisItem = new ToolStripButton("Build from Remotes");
+                    thisItem.Click += ThisItem_Click;
+                    contextMenuStrip1.Items.Add(thisItem);
+                    MsgStruct thisMsg = new MsgStruct();
+                    thisMsg.Message = "New Configuration Loaded.";
+                    thisMsg.ModuleNameFrom = "";
+                    thisMsg.ModuleNameTo = "";
+                    UniversExeSys.uComms.ExtMsgQueue.Enqueue(thisMsg);
+                }    
+                else
+                {
+                    if(contextMenuStrip1.Items.Count>2)
+                    {
+                        contextMenuStrip1.Items.RemoveAt(2);
+                        contextMenuStrip1.Items.RemoveAt(1);
+                        MsgStruct thisMsg = new MsgStruct();
+                        thisMsg.Message = "Configuration Un-Loaded.";
+                        thisMsg.ModuleNameFrom = "";
+                        thisMsg.ModuleNameTo = "";
+                        UniversExeSys.uComms.ExtMsgQueue.Enqueue(thisMsg);
+                    }
+                    
+                }
                 treeView1.Refresh();
             }
         }
+
+        private void ThisItem_Click(object sender, EventArgs e)
+        {
+            RepositoryManager.buildReposFromRemotes = true;            
+        }
+
         void updateStatusStrip()
         {
             if(RepositoryManager.updateConfigflag)
@@ -225,6 +266,18 @@ namespace IMS_Universe
             }
             MessageBox.Show($"The Working Directory Specified Does Not Exist!\n{thisCmd.workingDirString}", "Bad Working Directory");
         }
-#endregion
+        #endregion
+
+        private void treeView1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            UniversExeSys.uComms.InputMessage2Communicate(comboBox1.Text);
+            if (!comboBox1.Items.Contains(comboBox1.Text))
+                comboBox1.Items.Add(comboBox1.Text);
+        }
     }
 }

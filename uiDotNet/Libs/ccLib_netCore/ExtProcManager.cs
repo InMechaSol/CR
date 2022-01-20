@@ -35,14 +35,15 @@ namespace ccLib_netCore
     }
     public class ExtProcManager
     {
+        ExecutionSystem exeSysLink;
         Process procLink = null;
         List<string> stdOutStrings = new List<string>();
         List<string> stdErrStrings = new List<string>();
         AutoResetEvent outputWaitHandle;
         AutoResetEvent errorWaitHandle;
-        public ExtProcManager()
+        public ExtProcManager(ExecutionSystem exeSysLinkIn)
         {
-
+            exeSysLink = exeSysLinkIn;
         }
 
         public void executeCMDS(List<ExtProcCmdStruct> CmdListIn)
@@ -66,6 +67,7 @@ namespace ccLib_netCore
                     procLink.StartInfo.Arguments = currentCmdLink.cmdArguments;
                     procLink.OutputDataReceived += ProcLink_OutputDataReceived;
                     procLink.ErrorDataReceived += ProcLink_ErrorDataReceived;
+                    exeSysLink.uComms.EnqueMsgString($"Starting {procLink.StartInfo.FileName} from {procLink.StartInfo.WorkingDirectory} with args= {procLink.StartInfo.Arguments}");
                     procLink.Start();
                     procLink.BeginOutputReadLine();
                     procLink.BeginErrorReadLine();
@@ -75,6 +77,8 @@ namespace ccLib_netCore
                     errorWaitHandle.WaitOne(currentCmdLink.timeOutms)
                         )
                     {
+                        exeSysLink.uComms.EnqueMsgString($"Finished:Success {procLink.StartInfo.FileName} from {procLink.StartInfo.WorkingDirectory} with args= {procLink.StartInfo.Arguments}");
+
                         if (stdErrStrings.Count > 0)
                             currentCmdLink.outANDerrorResults += "err:\n";
                         foreach (string s in stdErrStrings)
@@ -85,7 +89,11 @@ namespace ccLib_netCore
                             currentCmdLink.outANDerrorResults += s;
                     }
                     else
+                    {
+                        exeSysLink.uComms.EnqueMsgString($"Finished:Timeout {procLink.StartInfo.FileName} from {procLink.StartInfo.WorkingDirectory} with args= {procLink.StartInfo.Arguments}");
                         currentCmdLink.outANDerrorResults += "Timed Out: No Results";
+                    }
+                        
 
                     procLink.Close();
                     procLink = null;
