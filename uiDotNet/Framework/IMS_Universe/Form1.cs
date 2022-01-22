@@ -50,7 +50,12 @@ namespace IMS_Universe
             {
                 thisString = UniversExeSys.uComms.OutputMessage2Display();
                 if (thisString != null)
+                {
                     richTextBox2.AppendText(thisString);
+                    //richTextBox2.s
+                    richTextBox2.ScrollToCaret();
+                }
+                    
             } while (thisString != null);
         }
         void loadConfigFromFile()
@@ -137,9 +142,15 @@ namespace IMS_Universe
                     treeView1.ExpandAll();
                     ToolStripItem thisItem = new ToolStripSeparator();
                     contextMenuStrip1.Items.Add(thisItem);
-                    thisItem = new ToolStripButton("Build from Remotes");
+                    
+                    thisItem = new ToolStripButton("Configure Temp from Remotes");
                     thisItem.Click += ThisItem_Click;
+                    contextMenuStrip1.Items.Add(thisItem); 
+                    thisItem = new ToolStripButton("Push Temp to Remotes");
+                    thisItem.Click += ThisItem_Click;
+                    //thisItem.Enabled = false;
                     contextMenuStrip1.Items.Add(thisItem);
+                    contextMenuStrip1.AutoSize = true;
                     MsgStruct thisMsg = new MsgStruct();
                     thisMsg.Message = "New Configuration Loaded.";
                     thisMsg.ModuleNameFrom = "";
@@ -152,6 +163,7 @@ namespace IMS_Universe
                     {
                         contextMenuStrip1.Items.RemoveAt(2);
                         contextMenuStrip1.Items.RemoveAt(1);
+                        contextMenuStrip1.AutoSize = true;
                         MsgStruct thisMsg = new MsgStruct();
                         thisMsg.Message = "Configuration Un-Loaded.";
                         thisMsg.ModuleNameFrom = "";
@@ -166,7 +178,10 @@ namespace IMS_Universe
 
         private void ThisItem_Click(object sender, EventArgs e)
         {
-            RepositoryManager.buildReposFromRemotes = true;            
+            if (((ToolStripButton)sender).Text == "Push Temp to Remotes")
+                RepositoryManager.pushTempRepos2Remotes = true;
+            else if(((ToolStripButton)sender).Text == "Configure Temp from Remotes")
+                RepositoryManager.buildReposFromRemotes = true;            
         }
 
         void updateStatusStrip()

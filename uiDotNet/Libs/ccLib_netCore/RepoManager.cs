@@ -95,6 +95,10 @@ namespace ccLib_netCore
         [Description("Path to local working directory")]
         [DisplayName("workingDir")]
         public string workingDir { set; get; }
+        [Category("repo Tree Node")]
+        [Description("Sub-Level Depth (down from root repository node)")]
+        [DisplayName("Depth")]
+        public int Depth { get; set; }
         public repoTreeNode() {; }
         public repoTreeNode(repoTreeNode parentNode, RepoNodeStruct configStruct)
         {
@@ -127,10 +131,12 @@ namespace ccLib_netCore
         public bool newConfigLoaded { get; set; } = false;
         public bool updateConfigflag = true;
         public bool buildReposFromRemotes { get; set; } = false;
-        string tempDir = Path.GetTempPath() + "RepoManager";
+        public bool pushTempRepos2Remotes { get; set; } = false;
+        string tempDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\RepoManager";
         string ConfigReposDir;
         string ReposDir;
         string ReposDirUverseRoot;
+        List<List<repoTreeNode>> RepositoryTreeLevelLists = new List<List<repoTreeNode>>();
         public RepoManager()
         {
             IMSConfiguration = new IMSConfigStruct();
@@ -152,6 +158,12 @@ namespace ccLib_netCore
             {
                 buildReposFromRemotes = false;
                 BuildRepos();
+            }
+
+            if(pushTempRepos2Remotes)
+            {
+                pushTempRepos2Remotes = false;
+                PushTemp2Remotes();
             }
         }
         protected override void Setup()
@@ -213,6 +225,7 @@ namespace ccLib_netCore
                 string destName = ParentDirPath + $"\\{Node2Transfer.Name}\\{Path.GetFileName(dstring)}";
                 if (dstring.EndsWith(".git"))
                 {
+                    exeSysLink.uComms.EnqueMsgString($"Universe Building: {destName}");
                     string strippedString = destName.Replace(ReposDir,"").Replace("\\.git","");
                     if (strippedString.LastIndexOf("\\")==0)
                     {
@@ -227,17 +240,21 @@ namespace ccLib_netCore
                         gitText += Path.GetRelativePath(Path.GetDirectoryName(destName), submodulegitpath);
                         File.WriteAllText(destName,gitText);                        
                     }
-                    string moduleFname = destName.Replace(".git", ".gitmodules");
-                    if (File.Exists(moduleFname))
-                        File.Delete(moduleFname);
-                    string modText = "";
-                    foreach (repoTreeNode rNode in Node2Transfer.Nodes)
+                    if(Node2Transfer.Nodes.Count>0)
                     {
-                        modText += $"[submodule \"{rNode.RepoConfig.name}\"]\n";
-                        modText += $"\tpath = {rNode.RepoConfig.name}\n";
-                        modText += $"\turl = {rNode.RepoConfig.url}\n";
+                        string moduleFname = destName.Replace(".git", ".gitmodules");
+                        if (File.Exists(moduleFname))
+                            File.Delete(moduleFname);
+                        string modText = "";
+                        foreach (repoTreeNode rNode in Node2Transfer.Nodes)
+                        {
+                            modText += $"[submodule \"{rNode.RepoConfig.name}\"]\r\n";
+                            modText += $"\tpath = {rNode.RepoConfig.name}\r\n";
+                            modText += $"\turl = {rNode.RepoConfig.url}\r\n";
+                        }
+                        File.WriteAllText(moduleFname, modText);
                     }
-                    File.WriteAllText(moduleFname, modText);
+                    
                 }
                 else
                 {
@@ -253,8 +270,8 @@ namespace ccLib_netCore
                 Directory.CreateDirectory(ParentDirPath);
             }
             File.SetAttributes(ParentDirPath, FileAttributes.Directory);            
-            UniversefromConfig(ParentDirPath, Node2Transfer);
-            foreach(repoTreeNode rNode in Node2Transfer.Nodes)
+            UniversefromConfig(ParentDirPath, Node2Transfer);            
+            foreach (repoTreeNode rNode in Node2Transfer.Nodes)
             {
                 RecursiveUniversefromConfig(ParentDirPath+$"\\{Node2Transfer.Name}", rNode);
             }
@@ -311,9 +328,9 @@ namespace ccLib_netCore
 
 
                     ///
-
+                    exeSysLink.uComms.EnqueMsgString($"Universe Building: Begins {ReposDir}");
                     RecursiveUniversefromConfig(ReposDir, (repoTreeNode)RepositoryTreeRootNode.Nodes[0]);
-
+                    exeSysLink.uComms.EnqueMsgString($"Universe Building: Completed {ReposDir}");
                     ///
 
 
@@ -324,6 +341,77 @@ namespace ccLib_netCore
                     Cmds.Add(thisCmd);
                     exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
 
+                }
+            }
+        }
+        public void PushTemp2Remotes()
+        {
+            for(int i = RepositoryTreeLevelLists.Count - 1; i>=0; i--)
+            {
+                List<repoTreeNode> ChangesList = new List<repoTreeNode>();
+                List<repoTreeNode> NoChangeList = new List<repoTreeNode>();
+                List<ExtProcCmdStruct> cmds = new List<ExtProcCmdStruct>();
+                ExtProcCmdStruct thisCmd = new ExtProcCmdStruct();
+                thisCmd.cmdString = IMSConfiguration.Path2GitBin;
+                thisCmd.cmdArguments = "status --short";
+                string tempV = IMSConfiguration.Path2RootRepository;
+                foreach (repoTreeNode rNode in RepositoryTreeLevelLists[i])
+                {
+                    // check for local changes
+                    cmds.Clear();// one at a time...
+                    IMSConfiguration.Path2RootRepository = Directory.GetDirectories(ReposDir)[0];
+                    thisCmd.workingDirString = expectedWorkingDirectoryPath(rNode);                    
+                    cmds.Add(thisCmd);
+                    exeSysLink.ThirdPartyTools.executeCMDS(cmds);
+                    if (cmds[0].outANDerrorResults.Contains("up to date") && cmds[0].outANDerrorResults.Contains("Untracked files:  ("))
+                    {
+                        NoChangeList.Add(rNode);
+                    }
+                    else
+                    {
+                        ChangesList.Add(rNode);
+                    }
+                        
+                }
+                IMSConfiguration.Path2RootRepository = tempV;
+                
+
+
+                foreach (repoTreeNode rNode in ChangesList)
+                {
+
+                    // commit local
+                    //thisCmd.cmdArguments = "commit"
+                    //cmds.Clear();// one at a time...
+                    //IMSConfiguration.Path2RootRepository = Directory.GetDirectories(ReposDir)[0];
+                    //thisCmd.workingDirString = expectedWorkingDirectoryPath(rNode);
+                    //cmds.Add(thisCmd);
+                    //exeSysLink.ThirdPartyTools.executeCMDS(cmds);
+                    //if (cmds[0].outANDerrorResults.Contains("up to date") && cmds[0].outANDerrorResults.Contains("Untracked files:  ("))
+                    //{
+                    //    NoChangeList.Add(rNode);
+                    //}
+                    //else
+                    //{
+                    //    ChangesList.Add(rNode);
+                    //}
+
+                    // pull from remote
+
+
+                    // push remote
+
+                    //
+                    ;
+
+                }
+
+                foreach (repoTreeNode rNode in NoChangeList)
+                {
+
+                    // pull from remote no conflict
+                    ;
+                    // 
                 }
             }
         }
@@ -363,7 +451,8 @@ namespace ccLib_netCore
         {            
             IMSConfigNode = createGUItreeNodefromConfig(IMSConfiguration);
             RepositoryTreeRootNode = createREPOtreeNodefromRepoList(IMSConfiguration.Repositories);
-            RecursiveDetectWorkingDirectoryStatus((repoTreeNode)RepositoryTreeRootNode.Nodes[0]);
+            ((repoTreeNode)RepositoryTreeRootNode.Nodes[0]).Depth = 0;
+            RecursiveDetectWorkingDirectoryStatus((repoTreeNode)RepositoryTreeRootNode.Nodes[0]);            
         }
 
         public void DetectWorkingDirectoryStatus(repoTreeNode rootRepoNode)
@@ -381,6 +470,12 @@ namespace ccLib_netCore
                 rootRepoNode.workingDir = "Not Detected";
 
 
+            if (RepositoryTreeLevelLists.Count <= rootRepoNode.Depth)
+            {
+                RepositoryTreeLevelLists.Add(new List<repoTreeNode>());
+            }
+            if (!RepositoryTreeLevelLists[rootRepoNode.Depth].Contains(rootRepoNode))
+                RepositoryTreeLevelLists[rootRepoNode.Depth].Add(rootRepoNode);
 
 
         }
@@ -392,6 +487,7 @@ namespace ccLib_netCore
             // detect status of branches recursively
             foreach (repoTreeNode rNode in rootRepoNode.Nodes)
             {
+                rNode.Depth = rootRepoNode.Depth + 1;                
                 RecursiveDetectWorkingDirectoryStatus(rNode);
             }
         }
@@ -488,8 +584,9 @@ namespace ccLib_netCore
             return tempNode;
         }
 
-        public static repoTreeNode createREPOtreeNodefromRepoList(List<RepoNodeStruct> refList)
+        public repoTreeNode createREPOtreeNodefromRepoList(List<RepoNodeStruct> refList)
         {
+            
             repoTreeNode tempNode = new repoTreeNode();
             tempNode.Nodes = new List<guiTreeNode>();
             tempNode.Name = "RepoDirectoryTree";
@@ -529,14 +626,16 @@ namespace ccLib_netCore
             //// Recursive Function Call - Build all Repo Nodes
             //////////////
             BuildallRepoNodes(tempSubNode, refList);
-
+            
             tempNode.Nodes.Add(tempSubNode);
             return tempNode;
         }
-        public static void BuildallRepoNodes(repoTreeNode tempSubNode, List<RepoNodeStruct> refList)
+        public void BuildallRepoNodes(repoTreeNode tempSubNode, List<RepoNodeStruct> refList)
         {
             // Loop through all child nodes of current node
             repoTreeNode currentNode = tempSubNode;
+            
+
             if (currentNode.RepoConfig.submodnames != null)
             {
                 int counter = 0;
@@ -548,11 +647,11 @@ namespace ccLib_netCore
 
                     if(childConfig.submodnames!=null)
                     {
-                        //foreach(string st in childConfig.submodnames)
-                        //{
-                            if(childConfig.submodnames.Length>0)
-                                BuildallRepoNodes(nextChildNode,refList);
-                        //}
+                        if (childConfig.submodnames.Length > 0)
+                        {
+                            BuildallRepoNodes(nextChildNode, refList);
+                            
+                        }
                     }
 
                     currentNode.Nodes.Add(nextChildNode);
