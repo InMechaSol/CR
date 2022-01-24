@@ -286,32 +286,180 @@ namespace ccLib_netCore
                 if(IMSConfigNode.Nodes.Count>0)
                 {
 
-                    if (Directory.Exists(ConfigReposDir))
-                    {
-                        exeSysLink.uComms.EnqueMsgString($"Deleting: Begins {ConfigReposDir}");
-                        DeleteFilesAndFoldersRecursively(ConfigReposDir);
-                        exeSysLink.uComms.EnqueMsgString($"Deleting: Completed {ConfigReposDir}");
-                    }
-                    Directory.CreateDirectory(ConfigReposDir);
+                    //if (Directory.Exists(ConfigReposDir))
+                    //{
+                    //    exeSysLink.uComms.EnqueMsgString($"Deleting: Begins {ConfigReposDir}");
+                    //    DeleteFilesAndFoldersRecursively(ConfigReposDir);
+                    //    exeSysLink.uComms.EnqueMsgString($"Deleting: Completed {ConfigReposDir}");
+                    //}
+                    //Directory.CreateDirectory(ConfigReposDir);
+
+                    //// Clone all remotes from config file to flat config directory
+                    //Cmds.Clear();
+                    //foreach (guiTreeNode tNode in IMSConfigNode.Nodes.Find(n => n.Name == "Repositories").Nodes)
+                    //{
+                    //    // build commands to clone into config repos dir
+                    //    thisCmd = new ExtProcCmdStruct();
+                    //    thisCmd.cmdString = IMSConfiguration.Path2GitBin;
+                    //    thisCmd.cmdArguments = $"clone {((RepoNodeStruct)tNode.Tag).url} {Path.GetFullPath(ConfigReposDir + "\\" + ((RepoNodeStruct)tNode.Tag).name)}";
+                    //    thisCmd.workingDirString = ConfigReposDir;
+                    //    Cmds.Add(thisCmd);
+                    //}
+
+                    ////Execute Clone Commands
+                    //exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
 
 
-                    foreach (guiTreeNode tNode in IMSConfigNode.Nodes.Find(n => n.Name == "Repositories").Nodes)
+                    // fully remove, unlink, and delete subs from config
+                    // then create submodules according to config file
+                    string[] rDirs = Directory.GetDirectories(ConfigReposDir);
+                    List<bool> rDone = new List<bool>(rDirs.Length);
+                    List<RepoNodeStruct> lastDoneList = new List<RepoNodeStruct>(rDirs.Length);
+                    List<RepoNodeStruct> nextToDoList = new List<RepoNodeStruct>(rDirs.Length);
+                    RepoNodeStruct thisRnode;
+                    foreach (string rName in rDirs)
                     {
-                        // build commands to clone into config repos dir
-                        thisCmd = new ExtProcCmdStruct();
-                        thisCmd.cmdString = IMSConfiguration.Path2GitBin;
-                        thisCmd.cmdArguments = $"clone {((RepoNodeStruct)tNode.Tag).url} {Path.GetFullPath(ConfigReposDir + "\\" + ((RepoNodeStruct)tNode.Tag).name)}";
-                        thisCmd.workingDirString = tempDir;
-                        Cmds.Add(thisCmd);
+                        // get the list of subs from the config
+                        thisRnode = IMSConfiguration.Repositories.Find(x => x.name == rName.Substring(rName.LastIndexOf("\\")+1));
+                        if(thisRnode.submodnames!=null)
+                            foreach(string sName in thisRnode.submodnames)
+                            {
+                                Cmds.Clear();
+
+                                // build commands to rm 
+                                thisCmd = new ExtProcCmdStruct();
+                                thisCmd.cmdString = IMSConfiguration.Path2GitBin;
+                                thisCmd.cmdArguments = $"rm {sName}";
+                                thisCmd.workingDirString = ConfigReposDir + $"\\{thisRnode.name}";
+                                Cmds.Add(thisCmd);
+
+                                // build commands to commit 
+                                thisCmd = new ExtProcCmdStruct();
+                                thisCmd.cmdString = IMSConfiguration.Path2GitBin;
+                                thisCmd.cmdArguments = $"commit -am \"*RepoManager: Removing subs from config\" ";
+                                thisCmd.workingDirString = ConfigReposDir + $"\\{thisRnode.name}";
+                                Cmds.Add(thisCmd);
+
+                                //Execute Commands
+                                exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
+                                Cmds.Clear();
+
+                                // remove entry from config file
+                                string confText = File.ReadAllText(ConfigReposDir + $"\\{thisRnode.name}\\.git\\config");
+                                if (confText.Contains($"[submodule {sName}]") || confText.Contains($"[submodule \"{sName}\"]"))
+                                    ;
+
+                                // build commands to rmdir 
+                                if(Directory.Exists(ConfigReposDir + $"\\{thisRnode.name}\\.git\\modules\\{sName}"))
+                                    DeleteFilesAndFoldersRecursively(ConfigReposDir + $"\\{thisRnode.name}\\.git\\modules\\{sName}");
+
+
+                            }
+
+                        if (thisRnode.submodnames != null)
+                            foreach (string sName in thisRnode.submodnames)
+                            {
+                                Cmds.Clear();
+
+                                RepoNodeStruct thatRnode = IMSConfiguration.Repositories.Find(x => x.name == sName);
+                                // build commands to submodule add 
+                                thisCmd = new ExtProcCmdStruct();
+                                thisCmd.cmdString = IMSConfiguration.Path2GitBin;
+                                thisCmd.cmdArguments = $"submodule add {thatRnode.url} {thatRnode.name}";
+                                thisCmd.workingDirString = ConfigReposDir + $"\\{thisRnode.name}";
+                                Cmds.Add(thisCmd);
+
+                                // build commands to commit 
+                                thisCmd = new ExtProcCmdStruct();
+                                thisCmd.cmdString = IMSConfiguration.Path2GitBin;
+                                thisCmd.cmdArguments = $"commit -am \"*RepoManager: Adding subs from config\" ";
+                                thisCmd.workingDirString = ConfigReposDir + $"\\{thisRnode.name}";
+                                Cmds.Add(thisCmd);
+
+                                //Execute Commands
+                                exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
+
+                            }
+
+                        if (thisRnode.submodnames == null)
+                        { rDone.Add(true); lastDoneList.Add(thisRnode); nextToDoList.Add(thisRnode); }
+                        else if (thisRnode.submodnames.Length == 0)
+                        { rDone.Add(true); lastDoneList.Add(thisRnode); nextToDoList.Add(thisRnode); }
+                        else
+                        { rDone.Add(false); }
                     }
-                    ////thisCmd = new ExtProcCmdStruct();
-                    ////thisCmd.cmdString = "explorer";
-                    ////thisCmd.cmdArguments = ConfigReposDir;
-                    ////thisCmd.workingDirString = ConfigReposDir;
-                    ////Cmds.Add(thisCmd);
-                    exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
+                                        
+                    bool keepGoing = false;
+                    do
+                    {
+                        // loop through the process list and mark as done
+                        foreach (RepoNodeStruct r in nextToDoList)
+                        {
+                            Cmds.Clear();// process the repo
+                            if (!(nextToDoList.FindIndex(x => x == r) == lastDoneList.FindIndex(x => x == r)))                            
+                            {
+                                // submodule update recursive remote
+
+                                
+                            }
+
+                            ;// commit and push
+                             // build commands to commit 
+                            thisCmd = new ExtProcCmdStruct();
+                            thisCmd.cmdString = IMSConfiguration.Path2GitBin;
+                            thisCmd.cmdArguments = $"commit -am \"*RepoManager: Building sub module tree\" ";
+                            thisCmd.workingDirString = ConfigReposDir + $"\\{r.name}";
+                            Cmds.Add(thisCmd);
+
+                            //Execute Commands
+                            exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
+
+                            int asdfas=0;
+                            foreach(string st in rDirs)
+                            {
+                                if (st.Substring(st.LastIndexOf("\\")) == r.name)
+                                {
+                                    rDone[asdfas] = true;// mark as done
+                                }
+                                asdfas++;
+                            }
+                                
+                                    
+
+                        }
+
+                        keepGoing = false;
+                        foreach (bool b in rDone)
+                            keepGoing |= !b;
+
+                        if(keepGoing)
+                        {
+                            // transfer the next-to-process list over to the lastDoneList
+                            lastDoneList.Clear();
+                            foreach (RepoNodeStruct r in nextToDoList)
+                                lastDoneList.Add(r);
+
+                            // loop through to determine next to process list
+                            nextToDoList.Clear();
+                            foreach (RepoNodeStruct r in IMSConfiguration.Repositories)
+                            {
+                                List<string> subModNames = new List<string>(r.submodnames);
+                                foreach (RepoNodeStruct q in lastDoneList)
+                                    if (subModNames.Contains(q.name))
+                                        if (!nextToDoList.Contains(q))
+                                            nextToDoList.Add(q);
+                            }
+                        }
+                        
+
+
+                    } while (keepGoing);
                 }
             }
+
+
+
+
             if(RepositoryTreeRootNode!=null)
             {
                 if(RepositoryTreeRootNode.Nodes.Count>0)
@@ -329,7 +477,7 @@ namespace ccLib_netCore
 
                     ///
                     exeSysLink.uComms.EnqueMsgString($"Universe Building: Begins {ReposDir}");
-                    RecursiveUniversefromConfig(ReposDir, (repoTreeNode)RepositoryTreeRootNode.Nodes[0]);
+                    //RecursiveUniversefromConfig(ReposDir, (repoTreeNode)RepositoryTreeRootNode.Nodes[0]);
                     exeSysLink.uComms.EnqueMsgString($"Universe Building: Completed {ReposDir}");
                     ///
 

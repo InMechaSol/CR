@@ -67,7 +67,7 @@ namespace ccLib_netCore
                     procLink.StartInfo.Arguments = currentCmdLink.cmdArguments;
                     procLink.OutputDataReceived += ProcLink_OutputDataReceived;
                     procLink.ErrorDataReceived += ProcLink_ErrorDataReceived;
-                    exeSysLink.uComms.EnqueMsgString($"Starting {procLink.StartInfo.FileName} from {procLink.StartInfo.WorkingDirectory} with args= {procLink.StartInfo.Arguments}");
+                    exeSysLink.uComms.EnqueMsgString($"Starting {Path.GetFileName(procLink.StartInfo.FileName)} {procLink.StartInfo.Arguments} from {procLink.StartInfo.WorkingDirectory}");
                     procLink.Start();
                     procLink.BeginOutputReadLine();
                     procLink.BeginErrorReadLine();
@@ -77,7 +77,7 @@ namespace ccLib_netCore
                     errorWaitHandle.WaitOne(currentCmdLink.timeOutms)
                         )
                     {
-                        exeSysLink.uComms.EnqueMsgString($"Finished:Success {procLink.StartInfo.FileName} from {procLink.StartInfo.WorkingDirectory} with args= {procLink.StartInfo.Arguments}");
+                        exeSysLink.uComms.EnqueMsgString($"Finished:Success {Path.GetFileName(procLink.StartInfo.FileName)} {procLink.StartInfo.Arguments} from {procLink.StartInfo.WorkingDirectory}");
 
                         if (stdErrStrings.Count > 0)
                             currentCmdLink.outANDerrorResults += "err:\n";
@@ -90,7 +90,7 @@ namespace ccLib_netCore
                     }
                     else
                     {
-                        exeSysLink.uComms.EnqueMsgString($"Finished:Timeout {procLink.StartInfo.FileName} from {procLink.StartInfo.WorkingDirectory} with args= {procLink.StartInfo.Arguments}");
+                        exeSysLink.uComms.EnqueMsgString($"Finished:Timeout {Path.GetFileName(procLink.StartInfo.FileName)} {procLink.StartInfo.Arguments} from {procLink.StartInfo.WorkingDirectory}");
                         currentCmdLink.outANDerrorResults += "Timed Out: No Results";
                     }
                         
