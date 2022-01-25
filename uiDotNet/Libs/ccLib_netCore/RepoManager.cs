@@ -286,28 +286,28 @@ namespace ccLib_netCore
                 if(IMSConfigNode.Nodes.Count>0)
                 {
 
-                    //if (Directory.Exists(ConfigReposDir))
-                    //{
-                    //    exeSysLink.uComms.EnqueMsgString($"Deleting: Begins {ConfigReposDir}");
-                    //    DeleteFilesAndFoldersRecursively(ConfigReposDir);
-                    //    exeSysLink.uComms.EnqueMsgString($"Deleting: Completed {ConfigReposDir}");
-                    //}
-                    //Directory.CreateDirectory(ConfigReposDir);
+                    if (Directory.Exists(ConfigReposDir))
+                    {
+                        exeSysLink.uComms.EnqueMsgString($"Deleting: Begins {ConfigReposDir}");
+                        DeleteFilesAndFoldersRecursively(ConfigReposDir);
+                        exeSysLink.uComms.EnqueMsgString($"Deleting: Completed {ConfigReposDir}");
+                    }
+                    Directory.CreateDirectory(ConfigReposDir);
 
-                    //// Clone all remotes from config file to flat config directory
-                    //Cmds.Clear();
-                    //foreach (guiTreeNode tNode in IMSConfigNode.Nodes.Find(n => n.Name == "Repositories").Nodes)
-                    //{
-                    //    // build commands to clone into config repos dir
-                    //    thisCmd = new ExtProcCmdStruct();
-                    //    thisCmd.cmdString = IMSConfiguration.Path2GitBin;
-                    //    thisCmd.cmdArguments = $"clone {((RepoNodeStruct)tNode.Tag).url} {Path.GetFullPath(ConfigReposDir + "\\" + ((RepoNodeStruct)tNode.Tag).name)}";
-                    //    thisCmd.workingDirString = ConfigReposDir;
-                    //    Cmds.Add(thisCmd);
-                    //}
+                    // Clone all remotes from config file to flat config directory
+                    Cmds.Clear();
+                    foreach (guiTreeNode tNode in IMSConfigNode.Nodes.Find(n => n.Name == "Repositories").Nodes)
+                    {
+                        // build commands to clone into config repos dir
+                        thisCmd = new ExtProcCmdStruct();
+                        thisCmd.cmdString = IMSConfiguration.Path2GitBin;
+                        thisCmd.cmdArguments = $"clone {((RepoNodeStruct)tNode.Tag).url} {Path.GetFullPath(ConfigReposDir + "\\" + ((RepoNodeStruct)tNode.Tag).name)}";
+                        thisCmd.workingDirString = ConfigReposDir;
+                        Cmds.Add(thisCmd);
+                    }
 
-                    ////Execute Clone Commands
-                    //exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
+                    //Execute Clone Commands
+                    exeSysLink.ThirdPartyTools.executeCMDS(Cmds);
 
 
                     // fully remove, unlink, and delete subs from config
