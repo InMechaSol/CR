@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <Configurations>Debug;Release;ccNOos_Tests;ccOS_Tests;ccNOos_SysTick;ccNOos_SatComACS;ccOS_ccACU</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

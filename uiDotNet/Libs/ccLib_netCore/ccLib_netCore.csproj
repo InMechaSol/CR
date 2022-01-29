@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Configurations>Debug;Release;ccNOos_Tests;ccOS_Tests;ccNOos_SysTick;ccNOos_SatComACS;ccOS_ccACU</Configurations>
   </PropertyGroup>
 
 </Project>
