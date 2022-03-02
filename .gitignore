@@ -20,3 +20,5 @@
 /uiDotNet/Framework/IMS_Universe/bin
 /uiDotNet/Libs/ccLib_netCore/bin
 /.vs
+/uiDotNet/Framework/DeployTestProjectPreLink/obj
+/uiDotNet/Framework/DeployTestProjectPreLink/bin
