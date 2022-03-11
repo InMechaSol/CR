@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="Xcopy $(TargetDir) $(SolutionDir) /f /d /s /y" />
+    <Exec Command="Xcopy $(TargetDir) $(SolutionDir)\DeployTestProjectPreLink /f /d /s /y /i" />
   </Target>
 
 </Project>
