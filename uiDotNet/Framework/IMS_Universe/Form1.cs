@@ -292,7 +292,7 @@ namespace IMS_Universe
             UniversExeSys.uComms.InputMessage2Communicate(comboBox1.Text);
             if (!comboBox1.Items.Contains(comboBox1.Text))
                 comboBox1.Items.Add(comboBox1.Text);
-        }1
+        }
         #endregion
 
 
