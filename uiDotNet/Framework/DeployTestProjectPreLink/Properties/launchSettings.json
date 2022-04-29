@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DeployTestProjectPreLink": {
+      "commandName": "Project",
+      "commandLineArgs": "TS4900ACU"
+    }
+  }
+}

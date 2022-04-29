@@ -192,17 +192,21 @@ namespace ccLib_netCore
             File.SetAttributes(target_dir, FileAttributes.Directory);
             Directory.Delete(target_dir);
         }
-        void copyFilesNFoldersRecurrsive(string sourceDir, string targetDir)
+        public static void copyFilesNFolders(string sourceDir, string targetDir)
         {
-            if(!Directory.Exists(targetDir))
+            if (!Directory.Exists(targetDir))
             {
                 Directory.CreateDirectory(targetDir);
             }
-            foreach(string fstring in Directory.GetFiles(sourceDir))
+            foreach (string fstring in Directory.GetFiles(sourceDir))
             {
-                File.SetAttributes(fstring, FileAttributes.Normal);
-                File.Copy(fstring, targetDir+$"\\{Path.GetFileName(fstring)}");
+                //File.SetAttributes(fstring, FileAttributes.Normal);
+                File.Copy(fstring, targetDir + $"\\{Path.GetFileName(fstring)}", true);
             }
+        }
+        public static void copyFilesNFoldersRecurrsive(string sourceDir, string targetDir)
+        {
+            copyFilesNFolders(sourceDir, targetDir);
             foreach (string dstring in Directory.GetDirectories(sourceDir))
                 copyFilesNFoldersRecurrsive(dstring, targetDir+$"\\{dstring.Replace(sourceDir,"")}");
         }

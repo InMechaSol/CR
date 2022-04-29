@@ -11,6 +11,18 @@ namespace DeployTestProjectPreLink
 {
     class Program
     {
+        static void deployDirectoryRecursive(string srcDir, string dstDir)
+        {
+            if (Directory.Exists(dstDir))
+                RepoManager.DeleteFilesAndFoldersRecursively(dstDir);
+            RepoManager.copyFilesNFoldersRecurrsive(srcDir, dstDir);
+        }
+        static void deployDirectory(string srcDir, string dstDir)
+        {
+            if (Directory.Exists(dstDir))
+                RepoManager.DeleteFilesAndFoldersRecursively(dstDir);
+            RepoManager.copyFilesNFolders(srcDir, dstDir);
+        }
         static void Main(string[] args)
         {
             // Program expects ccNOosTest Directory as an input
@@ -110,9 +122,43 @@ namespace DeployTestProjectPreLink
                     return;
                 }
             }
+            else if(args.Length == 1)
+            {
+                if(args[0] == "ccACU")
+                {
+                    Console.WriteLine("ccACU: Deploying to CR/ccACU Repository");
+                    deployDirectoryRecursive("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\ccNOos\\tests\\testApps\\SatComACS", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\SatComACS");
+                    RepoManager.copyFilesNFolders("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\tests\\testApps\\ccACU", "C:\\IMS\\CR\\ccACU_Tests\\ccACU");
+                    deployDirectoryRecursive("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\tests\\testApps\\ccACU\\apiModules", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\apiModules");
+                    deployDirectoryRecursive("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\tests\\testApps\\ccACU\\deviceModules", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\deviceModules");
+                    File.Copy("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\ccNOos\\tests\\testPlatforms\\Platform_ccOS.hpp", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\Tests\\Platform_ccOS.hpp", true);
+                    return;
+                }
+                if (args[0] == "TS4900ACU")
+                {
+                    Console.WriteLine("TS4900ACU: Deploying to CS/TS4900ACU Repository");
+                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\CompInterfaces", "C:\\IMS\\CS\\TS4900ACU\\application\\CompInterfaces");
+                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\ConsoleApp", "C:\\IMS\\CS\\TS4900ACU\\application\\ConsoleApp");
+                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\ControllerApp", "C:\\IMS\\CS\\TS4900ACU\\application\\ControllerApp");
+                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\ExternalApps", "C:\\IMS\\CS\\TS4900ACU\\application\\ExternalApps");
+                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\TestApps", "C:\\IMS\\CS\\TS4900ACU\\application\\TestApps");
+                    return;
+                }
+                else if(args[0] == "SatComACS")
+                {
+                    Console.WriteLine("SatComACS: Deploying to CR/SatComACS Repository");
+                    
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("FAILURE:( Unrecongnized deploy project name input");
+                    return;
+                }
+            }
             else
             {
-                Console.WriteLine("FAILURE:( Correct Directories were not entered as program inputs!");
+                Console.WriteLine("FAILURE:( exactly 3 nor 1 inputs were received");
                 return;
             }
         }
