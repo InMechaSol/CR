@@ -20,3 +20,11 @@
 	path = uiDotNet/MDS_Server
 	url = https://github.com/InMechaSol/MDS_Server.git
 	branch = master
+[submodule "SatComACS"]
+	path = SatComACS
+	url = https://github.com/InMechaSol/SatComACS.git
+	branch = main
+[submodule "SatComACS_Tests"]
+	path = SatComACS_Tests
+	url = https://github.com/InMechaSol/SatComACS_Tests.git
+	branch = main
