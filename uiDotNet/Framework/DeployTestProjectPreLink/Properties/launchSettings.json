@@ -1,8 +1,7 @@
 {
   "profiles": {
     "DeployTestProjectPreLink": {
-      "commandName": "Project",
-      "commandLineArgs": "RECON_ACU"
+      "commandName": "Project"
     }
   }
 }

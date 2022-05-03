@@ -126,22 +126,22 @@ namespace DeployTestProjectPreLink
             {
                 if(args[0] == "ccACU")
                 {
-                    Console.WriteLine("ccACU: Deploying to CR/ccACU Repository");
-                    deployDirectoryRecursive("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\ccNOos\\tests\\testApps\\SatComACS", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\SatComACS");
-                    RepoManager.copyFilesNFolders("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\tests\\testApps\\ccACU", "C:\\IMS\\CR\\ccACU_Tests\\ccACU");
-                    deployDirectoryRecursive("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\tests\\testApps\\ccACU\\apiModules", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\apiModules");
-                    deployDirectoryRecursive("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\tests\\testApps\\ccACU\\deviceModules", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\deviceModules");
-                    File.Copy("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\ccNOos\\tests\\testPlatforms\\Platform_ccOS.hpp", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\Tests\\Platform_ccOS.hpp", true);
+                    //Console.WriteLine("ccACU: Deploying to CR/ccACU Repository");
+                    //deployDirectoryRecursive("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\ccNOos\\tests\\testApps\\SatComACS", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\SatComACS");
+                    //RepoManager.copyFilesNFolders("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\tests\\testApps\\ccACU", "C:\\IMS\\CR\\ccACU_Tests\\ccACU");
+                    //deployDirectoryRecursive("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\tests\\testApps\\ccACU\\apiModules", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\apiModules");
+                    //deployDirectoryRecursive("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\tests\\testApps\\ccACU\\deviceModules", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\deviceModules");
+                    //File.Copy("C:\\IMS\\CR\\ccOS_Tests\\ccOS\\ccNOos\\tests\\testPlatforms\\Platform_ccOS.hpp", "C:\\IMS\\CR\\ccACU_Tests\\ccACU\\Tests\\Platform_ccOS.hpp", true);
                     return;
                 }
                 else if (args[0] == "TS4900ACU")
                 {
-                    Console.WriteLine("TS4900ACU: Deploying to CS/TS4900ACU Repository");
-                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\CompInterfaces", "C:\\IMS\\CS\\TS4900ACU\\application\\CompInterfaces");
-                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\ConsoleApp", "C:\\IMS\\CS\\TS4900ACU\\application\\ConsoleApp");
-                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\ControllerApp", "C:\\IMS\\CS\\TS4900ACU\\application\\ControllerApp");                    
-                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\ExternalApps", "C:\\IMS\\CS\\TS4900ACU\\application\\ExternalApps");
-                    deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\TestApps", "C:\\IMS\\CS\\TS4900ACU\\application\\TestApps");
+                    //Console.WriteLine("TS4900ACU: Deploying to CS/TS4900ACU Repository");
+                    //deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\CompInterfaces", "C:\\IMS\\CS\\TS4900ACU\\application\\CompInterfaces");
+                    //deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\ConsoleApp", "C:\\IMS\\CS\\TS4900ACU\\application\\ConsoleApp");
+                    //deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\ControllerApp", "C:\\IMS\\CS\\TS4900ACU\\application\\ControllerApp");                    
+                    //deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\ExternalApps", "C:\\IMS\\CS\\TS4900ACU\\application\\ExternalApps");
+                    //deployDirectoryRecursive("C:\\IMS\\CR\\ccACU_Tests\\TS4900\\TestApps", "C:\\IMS\\CS\\TS4900ACU\\application\\TestApps");
                     return;
                 }
                 else if(args[0] == "SatComACS")
