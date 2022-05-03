@@ -28,3 +28,11 @@
 	path = SatComACS_Tests
 	url = https://github.com/InMechaSol/SatComACS_Tests.git
 	branch = main
+[submodule "applicationPlatforms/TS4900"]
+	path = applicationPlatforms/TS4900
+	url = https://github.com/InMechaSol/TS4900.git
+	branch = ccACU
+[submodule "applicationPlatforms/WIN32"]
+	path = applicationPlatforms/WIN32
+	url = https://github.com/InMechaSol/WIN32.git
+	branch = main
