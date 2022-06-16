@@ -42,3 +42,13 @@
 [submodule "uiDotNet/Framework/SimpleModelExplorer"]
 	path = uiDotNet/Framework/SimpleModelExplorer
 	url = https://github.com/InMechaSol/SimpleModelExplorer.git
+[submodule "uiDotNet/Framework/TheNGPOC"]
+	path = uiDotNet/Framework/TheNGPOC
+	url = https://github.com/GSE79/TheNGPOC.git
+	branch = Ver_2.7.1_Development
+[submodule "uiDotNet/Framework/MechatronicDesignSuite"]
+	path = uiDotNet/Framework/MechatronicDesignSuite
+	url = https://github.com/GSE79/Repo_MechatronicDesignSuite_DLL.git
+[submodule "uiDotNet/Framework/mBedXPlatform"]
+	path = uiDotNet/Framework/mBedXPlatform
+	url = https://github.com/GSE79/Repo_mBedXPlatform_DLL.git
