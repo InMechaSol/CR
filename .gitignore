@@ -22,3 +22,4 @@
 /.vs
 /uiDotNet/Framework/DeployTestProjectPreLink/obj
 /uiDotNet/Framework/DeployTestProjectPreLink/bin
+/uiDotNet/Libs/ccACU_netCore/obj

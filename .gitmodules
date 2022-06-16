@@ -36,3 +36,9 @@
 	path = applicationPlatforms/WIN32
 	url = https://github.com/InMechaSol/WIN32.git
 	branch = main
+[submodule "uiDotNet/Libs/ScottPlot"]
+	path = uiDotNet/Libs/ScottPlot
+	url = https://github.com/ScottPlot/ScottPlot.git
+[submodule "uiDotNet/Framework/SimpleModelExplorer"]
+	path = uiDotNet/Framework/SimpleModelExplorer
+	url = https://github.com/InMechaSol/SimpleModelExplorer.git
