@@ -1,0 +1,43 @@
+html {
+  font-size: 10vh;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+h1 {
+  font-size: 20vh;
+  text-align: center;
+  margin: 0;
+  padding: 20px 0;
+  color: #00539F;
+  text-shadow: 3px 3px 1px black;
+}
+
+h2 {
+  font-size: 15vh;
+  text-align: left;
+}
+
+p, li {
+  font-size: 10vh;
+  line-height: 2;
+  letter-spacing: 1px;
+}
+
+
+html {
+  background-color: #ec9544;
+}
+
+body {
+  width: 30vw;
+  margin: auto auto;
+  background-color: #fdfdfc;
+  padding: 0px 0px 0px 0px;
+  border: 5px solid black;
+}
+
+img {
+  display: block;
+  margin: auto auto;
+}
